@@ -1,0 +1,106 @@
+[gd_scene load_steps=11 format=3 uid="uid://wqfvwdy3ui2u"]
+
+[ext_resource type="Script" path="res://enemies/foods/code/melee_food.gd" id="1_u4xxk"]
+[ext_resource type="PackedScene" uid="uid://d16mfgwqaknp1" path="res://enemies/enemy drops/egg_drop.tscn" id="2_sp38q"]
+[ext_resource type="Texture2D" uid="uid://5i63neaue600" path="res://assets/kenney_prototype_textures/orange/texture_09.png" id="3_8vtf2"]
+[ext_resource type="Texture2D" uid="uid://bueu0ifk2s68c" path="res://assets/kenney_prototype_textures/light/texture_07.png" id="3_io5lo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k0w1n"]
+albedo_texture = ExtResource("3_io5lo")
+
+[sub_resource type="SphereMesh" id="SphereMesh_wvsad"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ik0vq"]
+albedo_texture = ExtResource("3_8vtf2")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cb8d8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4wcus"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_couqs"]
+
+[node name="egg" type="CharacterBody3D" groups=["melee"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51089, 0)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_u4xxk")
+node = ExtResource("2_sp38q")
+lowest_speed = 0.6
+highest_speed = 1.2
+lowest_max_distance_to_pack = 6.0
+highest_max_distance_to_pack = 15.0
+lowest_panic_amount = 1.8
+highest_panic_amount = 2.4
+hp = 4
+jump_timer = 17.0
+can_jump = false
+charge_force = 4.0
+aggresion_range = 20
+
+[node name="main_mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.955, 0, 0, 0, 1.146, 0, 0, 0, 0.955, 0.197071, 0, 0.126404)
+material_override = SubResource("StandardMaterial3D_k0w1n")
+mesh = SubResource("SphereMesh_wvsad")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="main_mesh"]
+transform = Transform3D(0.00816066, -0.00227779, 0.564683, 0.116238, 0.142609, -8.38009e-10, -0.243562, 0.0679827, 0.01892, 0, 0.196748, -0.331532)
+material_override = SubResource("StandardMaterial3D_ik0vq")
+mesh = SubResource("CapsuleMesh_cb8d8")
+skeleton = NodePath("../..")
+
+[node name="main_mesh2" type="MeshInstance3D" parent="main_mesh"]
+transform = Transform3D(0.549738, 0, 0, 0, 0.549738, 0, 0, 0, 0.549738, -0.44083, -0.16589, -0.536916)
+material_override = SubResource("StandardMaterial3D_k0w1n")
+mesh = SubResource("SphereMesh_wvsad")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="main_mesh/main_mesh2"]
+transform = Transform3D(0.00816067, -0.00227779, 0.564683, 0.116238, 0.142608, 8.03285e-10, -0.243562, 0.0679826, 0.01892, 0, 0.196748, -0.35795)
+material_override = SubResource("StandardMaterial3D_ik0vq")
+mesh = SubResource("CapsuleMesh_cb8d8")
+skeleton = NodePath("../../..")
+
+[node name="main_mesh3" type="MeshInstance3D" parent="main_mesh"]
+transform = Transform3D(0.341361, 0, 0, 0, 0.341187, 0, 0, 0, 0.341361, 0, -0.228267, -0.68582)
+material_override = SubResource("StandardMaterial3D_k0w1n")
+mesh = SubResource("SphereMesh_wvsad")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="main_mesh/main_mesh3"]
+transform = Transform3D(0.00816066, -0.00227779, 0.564683, 0.116238, 0.142608, -3.49559e-10, -0.243562, 0.0679826, 0.01892, 0, 0.196748, -0.35205)
+material_override = SubResource("StandardMaterial3D_ik0vq")
+mesh = SubResource("CapsuleMesh_cb8d8")
+skeleton = NodePath("../../..")
+
+[node name="main_mesh4" type="MeshInstance3D" parent="main_mesh"]
+transform = Transform3D(0.445026, 0, 0, 0, 0.445026, 0, 0, 0, 0.445026, -0.712758, -0.205253, 0)
+material_override = SubResource("StandardMaterial3D_k0w1n")
+mesh = SubResource("SphereMesh_wvsad")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="main_mesh/main_mesh4"]
+transform = Transform3D(0.00816066, -0.00227779, 0.564683, 0.116238, 0.142608, -3.84281e-10, -0.243562, 0.0679826, 0.01892, 0, 0.196748, -0.355675)
+material_override = SubResource("StandardMaterial3D_ik0vq")
+mesh = SubResource("CapsuleMesh_cb8d8")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["melee"]]
+transform = Transform3D(1.17, 0, 0, 0, 1, 0, 0, 0, 1.315, 0, 0, 0)
+shape = SubResource("BoxShape3D_4wcus")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1.17, 0, 0, 0, 1, 0, 0, 0, 1.315, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1.1, 0, 0, 0, 1.3, 0, 0, 0, 1.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_couqs")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="agro_timer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="agro_timer" to="." method="_on_agro_timer_timeout"]

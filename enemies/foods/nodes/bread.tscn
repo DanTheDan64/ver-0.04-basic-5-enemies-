@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://b0xv1747nqe1y"]
+
+[ext_resource type="Script" path="res://enemies/foods/code/shooter_food.gd" id="1_kthq0"]
+[ext_resource type="PackedScene" uid="uid://rqi8il35cadd" path="res://enemies/enemy drops/bread_drop.tscn" id="2_kpnqk"]
+[ext_resource type="Texture2D" uid="uid://b168rl1t8f3af" path="res://assets/kenney_prototype_textures/dark/texture_08.png" id="3_s3eqp"]
+[ext_resource type="Texture2D" uid="uid://b3uq1heqgk4td" path="res://assets/2d_placeholder_assets/Background/Yellow.png" id="3_y3squ"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iywsw"]
+albedo_texture = ExtResource("3_s3eqp")
+
+[sub_resource type="BoxMesh" id="BoxMesh_unklm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3m1t"]
+albedo_texture = ExtResource("3_y3squ")
+
+[sub_resource type="BoxMesh" id="BoxMesh_p1miv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4wcus"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_couqs"]
+
+[node name="bread" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_kthq0")
+node = ExtResource("2_kpnqk")
+lowest_speed = 1.8
+lowest_max_distance_to_pack = 6.0
+highest_max_distance_to_pack = 10.0
+can_jump = false
+max_attack_range = 8
+
+[node name="main_mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_iywsw")
+mesh = SubResource("BoxMesh_unklm")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="main_mesh"]
+transform = Transform3D(0.0140644, 0, 0.769568, 0, 0.385, 0, -0.419764, 0, 0.0257847, 0, 0.22, -0.41417)
+material_override = SubResource("StandardMaterial3D_r3m1t")
+mesh = SubResource("BoxMesh_p1miv")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_4wcus")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1.1, 0, 0, 0, 1.5, 0, 0, 0, 1.1, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1.1, 0, 0, 0, 1.3, 0, 0, 0, 1.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_couqs")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="agro_timer" type="Timer" parent="."]
+
+[node name="gun" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -1.2)
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="agro_timer" to="." method="_on_agro_timer_timeout"]
